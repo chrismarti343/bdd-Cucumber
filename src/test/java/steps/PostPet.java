@@ -22,8 +22,7 @@ public class PostPet {
     @When("I send a post request with data")
     public void sendPostRequest() {
 
-        Response response = BddT.PostPet(petData);
-
+        this.response = BddT.PostPet(petData);
     }
     @Then("I receive the response code as {int}")
     public void verifyResponseCode(int status) {
