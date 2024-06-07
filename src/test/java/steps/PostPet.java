@@ -28,5 +28,6 @@ public class PostPet {
     public void verifyResponseCode(int status) {
         int ResponseCode = response.getStatusCode();
         assertEquals(ResponseCode,status );
+        System.out.println("Testing message ");
     }
 }
