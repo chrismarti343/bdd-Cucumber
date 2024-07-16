@@ -30,4 +30,25 @@ jobs:
       goals: 'test -Dfeatures.TestRunner'  # Assuming features.TestRunner executes your tests
       publishJUnitResults: true  # Publish results in this job
       testResultsFiles: '**/cucumber-reports/*.json'  # Adjust based on your test report location
+    
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '14'  # Adjust version as needed
+
+  # Download Cucumber report (assuming it's saved as cucumber.html)
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: '$(Pipeline.Workspace)'
+      artifact: 'report'
+      publishLocation: 'pipeline'
+
+  # Publish Cucumber HTML report
+  - task: PublishCucumberReport@1
+    inputs:
+      jsonDir: 'target/report/'
+      outputPath: 'target/report/'
+      theme: 'simple'
+      reportSuiteAsScenarios: true
+      name: 'Cucumber report'
+      title: 'Cucumber report BDD'
 
