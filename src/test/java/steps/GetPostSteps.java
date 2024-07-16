@@ -57,7 +57,7 @@ public class GetPostSteps {
         Response response = BddT.GetPetInformation(id);
 
         System.out.println("Response status code: " + response.statusCode());
-        System.out.println("Response body 22: " + response.body().asString());
+        System.out.println("Response body 22 test: " + response.body().asString());
 
         response.then()
                 .body("name", is(petName));
