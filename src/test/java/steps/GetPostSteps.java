@@ -58,6 +58,7 @@ public class GetPostSteps {
 
         System.out.println("Response status code: " + response.statusCode());
         System.out.println("Response body 22 test: " + response.body().asString());
+        Base.colorGreen("Texting color green");
 
         response.then()
                 .body("name", is(petName));
