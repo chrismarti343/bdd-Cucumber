@@ -1,0 +1,53 @@
+# Maven
+# Build your Java project and run tests with Apache Maven.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+
+jobs:
+- job: Install_Packages
+  pool:
+    vmImage: windows-latest  # Adjust VM image if needed
+
+  steps:
+  - task: JavaToolInstaller@0
+    inputs:
+      versionSpec: '17'
+      jdkArchitectureOption: 'x64'
+      jdkSourceOption: 'PreInstalled'
+
+  - task: Maven@4
+    displayName: Maven installation
+    inputs:
+      mavenPomFile: 'pom.xml'
+      goals: 'clean install -e'  # Only download and install dependencies
+      publishJUnitResults: false  # Don't publish results in this job
+      # Other Maven options as needed (e.g., mavenAuthenticateFeed)
+  
+  - task: Maven@4  # Task to run tests
+    displayName: Running tests
+    inputs:
+      mavenPomFile: 'pom.xml'
+      goals: 'test'  # Assuming features.TestRunner executes your tests
+      publishJUnitResults: true  # Publish results in this job
+    
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '14'  # Adjust version as needed
+
+  # Download Cucumber report (assuming it's saved as cucumber.html)
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: '$(Pipeline.Workspace)'
+      artifact: 'report'
+      publishLocation: 'pipeline'
+
+  # Publish Cucumber HTML report
+  - task: PublishCucumberReport@1
+    inputs:
+      jsonDir: 'report/'
+      outputPath: 'report/'
+      theme: 'simple'
+      reportSuiteAsScenarios: true
+      name: 'Cucumber report'
+      title: 'Cucumber report BDD'
+
