@@ -44,9 +44,9 @@ jobs:
   # Publish Cucumber HTML report
   - task: PublishCucumberReport@1
     inputs:
-      jsonDir: 'report/'
-      outputPath: 'report/'
-      theme: 'simple'
+      jsonDir: 'src/test/java/report/'
+      outputPath: 'src/test/java/report/'
+      theme: 'bootstrap'
       reportSuiteAsScenarios: true
       name: 'Cucumber report'
       title: 'Cucumber report BDD'

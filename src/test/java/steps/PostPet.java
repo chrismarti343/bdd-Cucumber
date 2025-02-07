@@ -11,7 +11,6 @@ import static org.junit.Assert.assertEquals;
 public class PostPet {
 
     private String petData;
-    private int expectedCode;
     private Response response;
 
 
@@ -22,7 +21,6 @@ public class PostPet {
 
     @When("I send a post request with data")
     public void sendPostRequest() {
-
         this.response = BddT.PostPet(petData);
     }
     @Then("I receive the response code as {int}")

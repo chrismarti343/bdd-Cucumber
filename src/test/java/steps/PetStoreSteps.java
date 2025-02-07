@@ -18,7 +18,7 @@ public class PetStoreSteps {
         response = RestAssured.given()
                 .contentType(ContentType.JSON)
                 .body(formattedBody)
-                .post("https://petstore.swagger.io/v2/store/order"); // post store orde
+                .post("https://petstore.swagger.io/v2/store/order"); // post store order
     }
 
     @Then("I should get {int} code")
